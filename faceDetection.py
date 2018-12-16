@@ -1,7 +1,5 @@
 import cv2
 import matplotlib.pyplot as plt
-import numpy as np
-import math
 
 class generalStruct ():
 
@@ -94,8 +92,8 @@ while success:
   #cv2.imwrite("frame%d.jpeg" % count, image)     # save frame as JPEG file
   #img_before = cv2.imread("frame%d.jpeg" % count)
   #img_before = image.astype(np.uint8)
-  generalStruct().test1 = image
-  images.append(generalStruct().result_image)
+  generalStruct.test1 = image
+  images.append(generalStruct.result_image)
   print('Read a new frame: ', success)
 
   #image_array[count] = imread("/home/me/Pictures/img1.png", 1);
@@ -105,7 +103,7 @@ while success:
 
 frame  = images[0]
 height, width, layers = frame.shape
-video = cv2.VideoWriter("sd2.avi", -1, 1, (width, height))
+video = cv2.VideoWriter("abc", -1, 1, (width, height))
 for image in images :
     video.write(image)
 cv2.destroyAllWindows()
