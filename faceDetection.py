@@ -4,16 +4,9 @@ import matplotlib.pyplot as plt
 class generalStruct ():
 
     def detect_faces(f_cascade, colored_img, scaleFactor=1.1):
-        # just making a copy of image passed, so that passed image is not changed
         img_copy = colored_img.copy()
-
-        # convert the test image to gray image as opencv face detector expects gray images
         gray = cv2.cvtColor(img_copy, cv2.COLOR_BGR2GRAY)
-
-        # let's detect multiscale (some images may be closer to camera than others) images
         faces = f_cascade.detectMultiScale(gray, scaleFactor=scaleFactor, minNeighbors=5)
-
-        # go over list of faces and draw them as rectangles on original colored img
         for (x, y, w, h) in faces:
 
             cv2.rectangle(img_copy, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -22,28 +15,14 @@ class generalStruct ():
 
     def convertToRGB(img):
         return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    #load test iamge
     test1 = cv2.imread('test1.jpg')
     result_image = test1.copy()
-    #convert the test image to gray image as opencv face detector expects gray images
     gray_img = cv2.cvtColor(test1, cv2.COLOR_BGR2GRAY)
 
-    #plt.imshow(gray_img, cmap='gray')
 
-
-    #test2 = cv2.imread('data/test1.jpg')
     haar_face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
-    # call our function to detect faces
     faces_detected_img = detect_faces(haar_face_cascade, test1)
-
-    # convert image to RGB and show image
-    #plt.imshow(convertToRGB(faces_detected_img))
-
-
-    #let's detect multiscale (some images may be closer to camera than others) images
     faces = haar_face_cascade.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=5)
-
-    #print the number of faces found
     print('Faces found: ', len(faces))
 
     age_net = cv2.dnn.readNetFromCaffe('deploy_age.prototxt', 'age_net.caffemodel')
